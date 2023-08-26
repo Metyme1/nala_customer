@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nala_c/screens/login.dart';
-import 'package:nala_c/screens/otpscreen.dart';
+
+import '../pages/screens/login.dart';
+
 
 class ShowDialogWidget {
   Future showDialogWidget(
@@ -47,25 +48,25 @@ class ShowDialogWidget {
                   style: TextStyle(color: Color(0xff1C6AC5)),
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  // Call the provided callback function
-                  onTapOK();
-
-                  // Navigate to the OTP page
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => OTPPage(phoneNumber: phone)),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff1C6AC5)),
-                ),
-                child: const Text(
-                  'Yes',
-                  style: TextStyle(color: Color(0xffffffff)),
-                ),
-              ),
+              // TextButton(
+              //   onPressed: () {
+              //     // Call the provided callback function
+              //     onTapOK();
+              //
+              //     // Navigate to the OTP page
+              //     Navigator.pushReplacement(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => OTPPage(phoneNumber: phone)),
+              //     );
+              //   },
+              //   style: ButtonStyle(
+              //     backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff1C6AC5)),
+              //   ),
+              //   child: const Text(
+              //     'Yes',
+              //     style: TextStyle(color: Color(0xffffffff)),
+              //   ),
+              // ),
             ],
           ),
         ],

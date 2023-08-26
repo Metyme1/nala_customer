@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nala_c/screens/splash_screens/splash4.dart';
 
 import '../../widget/button.dart';
 import '../../widget/splash_generator.dart';
+
 
 
 class SplashScreen4 extends StatefulWidget {
@@ -49,19 +49,19 @@ class _SplashScreen4State extends State<SplashScreen4> {
                 //  next button
                 Buttons().longButton('next', () {
                   // button on pressed
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const SplashScreen5(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SplashScreen4(),
+                    ),
+                  );
 
                   // animation
                   Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                      const SplashScreen5(),
+                      const SplashScreen4(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../widget/button.dart';
 import '../../widget/splash_generator.dart';
 
-import '../login.dart';
 
-class SplashScreen6 extends StatefulWidget {
-  const SplashScreen6({super.key});
+
+class SplashScreen2 extends StatefulWidget {
+  const SplashScreen2({super.key});
 
   @override
-  State<SplashScreen6> createState() => _SplashScreen6State();
+  State<SplashScreen2> createState() => _SplashScreen2State();
 }
 
-class _SplashScreen6State extends State<SplashScreen6> {
+class _SplashScreen2State extends State<SplashScreen2> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,32 +38,49 @@ class _SplashScreen6State extends State<SplashScreen6> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // splash title
-                SplashGenerator().title('Ride Sharing'),
-                // splash illustraion image
-                SplashGenerator()
-                    .splashImage('assets/images/splash_ridesharing.png'),
-                // splash body
-                SplashGenerator().bodyText(
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. '),
+                SplashGenerator().title('Services'),
                 const SizedBox(
-                  height: 30.0,
+                  height: 30,
+                ),
+                // services text
+                SplashGenerator().bodyText(
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laborum ex nisi eveniet harum.'),
+
+                const SizedBox(
+                  height: 40,
+                ),
+                SplashGenerator().services('car', 'On-Demand Rides'),
+                const SizedBox(
+                  height: 35,
+                ),
+                SplashGenerator().services('clock', 'Scheduled Rides   '),
+                const SizedBox(
+                  height: 35,
+                ),
+                SplashGenerator().services('carSide', 'Multiple Vehicles '),
+                const SizedBox(
+                  height: 35,
+                ),
+                SplashGenerator().services('taxi', 'Shared Rides         '),
+                const SizedBox(
+                  height: 100.0,
                 ),
                 //  next button
-                Buttons().longButton('Get Started', () {
-                  // button on pressed
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const LoginPage(),
-                  //   ),
-                  // );
+                Buttons().longButton('next', () {
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SplashScreen2(),
+                    ),
+                  );
 
                   // animation
                   Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                      const LoginPage(),
+                      const SplashScreen2(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);

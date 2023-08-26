@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nala_c/screens/splash_screens/splash3.dart';
 
 import '../../widget/button.dart';
 import '../../widget/splash_generator.dart';
-import 'splash4.dart';
 
-class SplashScreen3 extends StatefulWidget {
-  const SplashScreen3({super.key});
+class SplashScreen5 extends StatefulWidget {
+  const SplashScreen5({super.key});
 
   @override
-  State<SplashScreen3> createState() => _SplashScreen3State();
+  State<SplashScreen5> createState() => _SplashScreen5State();
 }
 
-class _SplashScreen3State extends State<SplashScreen3> {
+class _SplashScreen5State extends State<SplashScreen5> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,10 +34,10 @@ class _SplashScreen3State extends State<SplashScreen3> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // splash title
-                SplashGenerator().title('On-Demand Rides'),
+                SplashGenerator().title('Multiple vehicle options'),
                 // splash illustraion image
                 SplashGenerator()
-                    .splashImage('assets/images/spalsh_ondemand.png'),
+                    .splashImage('assets/images/splash_vehicle.png'),
                 // splash body
                 SplashGenerator().bodyText(
                     'Lorem ipsum dolor sit amet consectetur, adipisicing elit. '),
@@ -49,17 +47,19 @@ class _SplashScreen3State extends State<SplashScreen3> {
                 //  next button
                 Buttons().longButton('next', () {
                   // button on pressed
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const SplashScreen4(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SplashScreen5(),
+                    ),
+                  );
+
+                  // animation
                   Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                      const SplashScreen4(),
+                      const SplashScreen5(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);

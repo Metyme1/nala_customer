@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:nala_c/screens/splash_screens/splash5.dart';
+
 import '../../widget/button.dart';
 import '../../widget/splash_generator.dart';
+import '../screens/login.dart';
 
-class SplashScreen5 extends StatefulWidget {
-  const SplashScreen5({super.key});
+
+
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<SplashScreen5> createState() => _SplashScreen5State();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreen5State extends State<SplashScreen5> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,33 +28,27 @@ class _SplashScreen5State extends State<SplashScreen5> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
         body: Center(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // splash title
-                SplashGenerator().title('Multiple vehicle options'),
+                SplashGenerator().title('Nala Ride'),
                 // splash illustraion image
-                SplashGenerator()
-                    .splashImage('assets/images/splash_vehicle.png'),
-                // splash body
+                SplashGenerator().splashImage('assets/images/1st_splash.png'),
                 SplashGenerator().bodyText(
                     'Lorem ipsum dolor sit amet consectetur, adipisicing elit. '),
                 const SizedBox(
                   height: 30.0,
                 ),
-                //  next button
-                Buttons().longButton('next', () {
+                //  Explore button
+                Buttons().longButton('Explore', () {
                   // button on pressed
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
-                  //     builder: (context) => const SplashScreen6(),
+                  //     builder: (context) => const SplashScreen2(),
                   //   ),
                   // );
 
@@ -59,7 +57,39 @@ class _SplashScreen5State extends State<SplashScreen5> {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                      const SplashScreen6(),
+                      const SplashScreen(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.easeInOut;
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var offsetAnimation = animation.drive(tween);
+
+                        return SlideTransition(
+                            position: offsetAnimation, child: child);
+                      },
+                      transitionDuration: const Duration(milliseconds: 500),
+                    ),
+                  );
+                }),
+                //  Get Started button
+                Buttons().longButton('Get Started', () {
+                  // onpressed
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const LoginPage(),
+                  //   ),
+                  // );
+
+                  // animation
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                      const LoginPage(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);
