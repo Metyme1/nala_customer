@@ -1,18 +1,19 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:nala_c/src/config/platte.dart';
-
-import 'BothConfirm.dart';
+import 'Rideshare/chooseRide.dart';
+import 'Search.dart';
 
 
 class MyHomePage extends StatefulWidget {
   final String phoneNumber;
-  final String rideType;
+  final int rideType;
   final String FullName;
 
   MyHomePage({required this.phoneNumber, required   this.rideType, required this.FullName});
@@ -30,9 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String _selectedPickUpLocation = '';
   String _selectedDropOffLocation = '';
-
-
-
 
 
   Future<List<String>> _getLocationSuggestions(String query) async {
@@ -146,10 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
       capacity: 2,
     ),
 
-
-
   ];
-
   CarOption? selectedCarOption;
   @override
   Widget build(BuildContext context) {
@@ -158,8 +153,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final String formattedDate = dateFormatter.format(_selectedDateTime);
     final String formattedTime = timeFormatter.format(_selectedDateTime);
-
-
 
     return Scaffold(
 
@@ -443,17 +436,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 500.0, // Set the desired width
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ConfirmationPage(
-                        phoneNumber: widget.phoneNumber,
-                        fullName: widget.FullName,
-                        rideType: widget.rideType,
-                         selectedCarOption: '',
-                      ),
-                    ),
-                  );
+                  _showConfirmationDialog(context);
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(AppColors.primaryColor),
@@ -465,7 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   minimumSize: MaterialStateProperty.all<Size>(Size.fromHeight(50.0)),
                 ),
                 child: Text(
-                  'Next',
+                  'Book a ride',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -482,6 +465,74 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: AlertDialog(
+            title: Text('Confirm your order'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Phone Number: ${widget.phoneNumber}'),
+                SizedBox(height: 8.0),
+                Text('Full Name: ${widget.FullName}'),
+                SizedBox(height: 8.0),
+                Text('Ride Type: ${widget.rideType}'),
+                SizedBox(height: 8.0),
+                Text('Selected Car Option: $selectedCarOption'),
+                SizedBox(height: 16.0),
+                Text('Date: ${DateTime.now()}'),
+              ],
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  if (widget.rideType == 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Shared(
+                          phoneNumber: widget.phoneNumber,
+                          fullName: widget.FullName,
+                          selectedCarOption: '', rideType: "Shared Ride",
+                        ),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchingPage(
+                          phoneNumber: widget.phoneNumber,
+                          fullName: widget.FullName,
+                          selectedCarOption: '', rideType: "Normal Ride",
+                        ),
+                      ),
+                    );
+                  }
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(AppColors.primaryColor),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      )),
+                  minimumSize: MaterialStateProperty.all<Size>(Size.fromHeight(50.0)),
+                ),
+                child: Text('Confirm'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 }
 
 class CarOption {
@@ -496,73 +547,3 @@ class CarOption {
   });
 }
 
-
-//
-// ElevatedButton(
-//   onPressed: () {
-//     if (widget.rideType == 'Shared Ride') {
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => RideDetailsPage(
-//             pickupLocation: _selectedPickUpLocation,
-//             dropOffLocation: _selectedDropOffLocation,
-//             pickupLocationLatitude: pickupLatitude,
-//             pickupLocationLongitude: pickupLongitude,
-//             dropOffLocationLatitude: dropOffLatitude,
-//             dropOffLocationLongitude: dropOffLongitude,
-//             selectedDateTime: _selectedDateTime,
-//             phoneNumber: widget.phoneNumber,
-//             rideType: widget.rideType,
-//             passengerCount: _passengerCount,
-//           ),
-//         ),
-//       );
-//     } else {
-//       _navigateToChoosingRidePage();
-//     }
-//   },
-//   style: ButtonStyle(
-//     backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
-//     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-//       RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(5.0),
-//       ),
-//     ),
-//     minimumSize: MaterialStateProperty.all<Size>(Size.fromHeight(50.0)),
-//   ),
-//   child: Text(
-//     'Next',
-//     style: TextStyle(
-//       color: Colors.white,
-//       fontSize: 16,
-//     ),
-//   ),
-// ),
-
-// void _navigateToChoosingRidePage() {
-//   if (_selectedPickUpLocation.isNotEmpty &&
-//       _selectedDropOffLocation.isNotEmpty != null
-//   )
-//
-//   { // Assuming you have a variable named selectedDateTime for storing the chosen date and time
-//
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) =>
-//             ChoosingRidePage(
-//               pickupLocation: _selectedPickUpLocation,
-//               dropOffLocation: _selectedDropOffLocation,
-//               pickupLocationLatitude: pickupLatitude,
-//               pickupLocationLongitude: pickupLongitude,
-//               dropOffLocationLatitude: dropOffLatitude,
-//               dropOffLocationLongitude: dropOffLongitude,
-//               selectedDateTime: _selectedDateTime,
-//               phoneNumber: widget.phoneNumber,
-//               rideType: widget.rideType,
-//             ),
-//       ),
-//     );
-//   }
-// }

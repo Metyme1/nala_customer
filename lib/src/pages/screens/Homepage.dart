@@ -91,7 +91,7 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  int _rideTypeValue = 0;
+  String _rideTypeValue = "Shared Ride";
 
 
   @override
@@ -241,13 +241,13 @@ class _MapPageState extends State<MapPage> {
               SizedBox(height: 16.0),
               CupertinoSlidingSegmentedControl(
                 children: {
-                  0: Text('Share Ride'),
-                  1: Text('Normal Ride'),
+                  'shared': Text('Share Ride'),
+                  'normal': Text('Normal Ride'),
                 },
-                groupValue: _rideTypeValue,
+                groupValue: _rideTypeValue == 'shared' ? 'shared' : 'normal',
                 onValueChanged: (value) {
                   setState(() {
-                    _rideTypeValue = value!;
+                    _rideTypeValue = value.toString();
                   });
                   // Handle ride type selection
                 },

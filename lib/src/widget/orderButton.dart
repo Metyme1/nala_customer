@@ -1,19 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:nala_c/src/config/platte.dart';
-
 import '../pages/screens/pickup_drop.dart';
-
-GestureDetector buildOrderButton(BuildContext context, String phoneNumber, int rideTypeValue,String FullName) {
+GestureDetector buildOrderButton(BuildContext context, String phoneNumber, String rideTypeValue, String fullName) {
   return GestureDetector(
     onTap: () {
-      String rideType = (rideTypeValue == 0) ? 'Shared Ride' : 'Normal Ride';
+      int rideType = (rideTypeValue == 'Shared Ride') ? 1 : 0;
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => MyHomePage(
             phoneNumber: phoneNumber,
-            rideType: rideType, FullName: FullName
+            rideType: rideType,
+            FullName: fullName,
           ),
         ),
       );
